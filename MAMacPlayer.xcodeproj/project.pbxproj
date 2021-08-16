@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */ = {isa = PBXBuildFile; fileRef = DB51D2E42673505F0031BC18 /* masdl_thread.m */; };
+		DB60D402268C9945003F22A1 /* MAFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB60D401268C9945003F22A1 /* MAFrameBuffer.m */; };
+		DBB3ED13264A7375008754C6 /* MAPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3ED11264A7375008754C6 /* MAPlayerViewController.m */; };
+		DBB3ED17264A753B008754C6 /* MAPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3ED16264A753B008754C6 /* MAPlayer.m */; };
+		DBB3ED19264A78F8008754C6 /* test2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DBB3ED18264A78F8008754C6 /* test2.mp4 */; };
+		DBB3ED22264A7FCE008754C6 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED1C264A7F23008754C6 /* libavcodec.a */; };
+		DBB3ED23264A7FCE008754C6 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED1E264A7F23008754C6 /* libavdevice.a */; };
+		DBB3ED24264A7FCE008754C6 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED1A264A7F23008754C6 /* libavfilter.a */; };
+		DBB3ED25264A7FCE008754C6 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED20264A7F23008754C6 /* libavformat.a */; };
+		DBB3ED26264A7FCE008754C6 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED1F264A7F23008754C6 /* libavutil.a */; };
+		DBB3ED27264A7FCE008754C6 /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED1D264A7F23008754C6 /* libpostproc.a */; };
+		DBB3ED28264A7FCE008754C6 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED1B264A7F23008754C6 /* libswresample.a */; };
+		DBB3ED29264A7FCE008754C6 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED21264A7F24008754C6 /* libswscale.a */; };
+		DBB3ED2A264A7FFE008754C6 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB5697926004C9A00B82906 /* libfdk-aac.a */; };
+		DBB3ED2B264A8042008754C6 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB5698326004D3000B82906 /* libx264.a */; };
+		DBB3ED2D264A80A0008754C6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED2C264A80A0008754C6 /* AudioToolbox.framework */; };
+		DBB3ED35264A81DA008754C6 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED34264A81DA008754C6 /* libbz2.1.0.tbd */; };
+		DBB3ED37264A8214008754C6 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED36264A8214008754C6 /* VideoToolbox.framework */; };
+		DBB3ED39264A8235008754C6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED38264A8235008754C6 /* CoreMedia.framework */; };
+		DBB3ED3D264A82A9008754C6 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED3C264A82A9008754C6 /* libiconv.tbd */; };
+		DBB3ED3F264A8E81008754C6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB3ED3E264A8E81008754C6 /* libz.tbd */; };
+		DBB3ED46264E16D7008754C6 /* MAAudioQueuePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3ED45264E16D7008754C6 /* MAAudioQueuePlayer.m */; };
+		DBB5696526004C6D00B82906 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB5696426004C6D00B82906 /* AppDelegate.m */; };
+		DBB5696826004C6D00B82906 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB5696726004C6D00B82906 /* ViewController.m */; };
+		DBB5696A26004C6D00B82906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB5696926004C6D00B82906 /* Assets.xcassets */; };
+		DBB5696D26004C6E00B82906 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB5696B26004C6E00B82906 /* Main.storyboard */; };
+		DBB5697026004C6E00B82906 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB5696F26004C6E00B82906 /* main.m */; };
+		DBB569C326004F8E00B82906 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */; };
+		DBB569C426004F8E00B82906 /* libSDL2-2.0.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DBB99E972626D3CD007BF645 /* video1.yuv in Resources */ = {isa = PBXBuildFile; fileRef = DBB99E962626D3CD007BF645 /* video1.yuv */; };
+		DBE8468B265E255A00A1258F /* MAVideoQueuePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE8468A265E255A00A1258F /* MAVideoQueuePlayer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DBB569C526004F8E00B82906 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DBB569C426004F8E00B82906 /* libSDL2-2.0.0.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DB51D2E32673505F0031BC18 /* masdl_thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = masdl_thread.h; sourceTree = "<group>"; };
+		DB51D2E42673505F0031BC18 /* masdl_thread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = masdl_thread.m; sourceTree = "<group>"; };
+		DB51D2E7267850300031BC18 /* ff_ffplay_def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ff_ffplay_def.h; sourceTree = "<group>"; };
+		DB60D400268C9945003F22A1 /* MAFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAFrameBuffer.h; sourceTree = "<group>"; };
+		DB60D401268C9945003F22A1 /* MAFrameBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAFrameBuffer.m; sourceTree = "<group>"; };
+		DBB3ED10264A7375008754C6 /* MAPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAPlayerViewController.h; sourceTree = "<group>"; };
+		DBB3ED11264A7375008754C6 /* MAPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAPlayerViewController.m; sourceTree = "<group>"; };
+		DBB3ED15264A753B008754C6 /* MAPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAPlayer.h; sourceTree = "<group>"; };
+		DBB3ED16264A753B008754C6 /* MAPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAPlayer.m; sourceTree = "<group>"; };
+		DBB3ED18264A78F8008754C6 /* test2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.mp4; sourceTree = "<group>"; };
+		DBB3ED1A264A7F23008754C6 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = "../../库/ffmpeg-mac/lib/libavfilter.a"; sourceTree = "<group>"; };
+		DBB3ED1B264A7F23008754C6 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = "../../库/ffmpeg-mac/lib/libswresample.a"; sourceTree = "<group>"; };
+		DBB3ED1C264A7F23008754C6 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "../../库/ffmpeg-mac/lib/libavcodec.a"; sourceTree = "<group>"; };
+		DBB3ED1D264A7F23008754C6 /* libpostproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpostproc.a; path = "../../库/ffmpeg-mac/lib/libpostproc.a"; sourceTree = "<group>"; };
+		DBB3ED1E264A7F23008754C6 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavdevice.a; path = "../../库/ffmpeg-mac/lib/libavdevice.a"; sourceTree = "<group>"; };
+		DBB3ED1F264A7F23008754C6 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavutil.a; path = "../../库/ffmpeg-mac/lib/libavutil.a"; sourceTree = "<group>"; };
+		DBB3ED20264A7F23008754C6 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = "../../库/ffmpeg-mac/lib/libavformat.a"; sourceTree = "<group>"; };
+		DBB3ED21264A7F24008754C6 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = "../../库/ffmpeg-mac/lib/libswscale.a"; sourceTree = "<group>"; };
+		DBB3ED2C264A80A0008754C6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DBB3ED34264A81DA008754C6 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
+		DBB3ED36264A8214008754C6 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		DBB3ED38264A8235008754C6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		DBB3ED3A264A827C008754C6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		DBB3ED3C264A82A9008754C6 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		DBB3ED3E264A8E81008754C6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		DBB3ED44264E16D7008754C6 /* MAAudioQueuePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAAudioQueuePlayer.h; sourceTree = "<group>"; };
+		DBB3ED45264E16D7008754C6 /* MAAudioQueuePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAAudioQueuePlayer.m; sourceTree = "<group>"; };
+		DBB5696026004C6D00B82906 /* MAMacPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MAMacPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBB5696326004C6D00B82906 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DBB5696426004C6D00B82906 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DBB5696626004C6D00B82906 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DBB5696726004C6D00B82906 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DBB5696926004C6D00B82906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DBB5696C26004C6E00B82906 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DBB5696E26004C6E00B82906 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBB5696F26004C6E00B82906 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DBB5697126004C6E00B82906 /* MAMacPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MAMacPlayer.entitlements; sourceTree = "<group>"; };
+		DBB5697926004C9A00B82906 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "../../库/fdk-aac-mac/lib/libfdk-aac.a"; sourceTree = "<group>"; };
+		DBB5698326004D3000B82906 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libx264.a; path = "../../库/x264-mac/lib/libx264.a"; sourceTree = "<group>"; };
+		DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../库/libsdl-mac/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
+		DBB99E962626D3CD007BF645 /* video1.yuv */ = {isa = PBXFileReference; lastKnownFileType = file; path = video1.yuv; sourceTree = "<group>"; };
+		DBE84689265E255A00A1258F /* MAVideoQueuePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAVideoQueuePlayer.h; sourceTree = "<group>"; };
+		DBE8468A265E255A00A1258F /* MAVideoQueuePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAVideoQueuePlayer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DBB5695D26004C6D00B82906 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBB3ED3F264A8E81008754C6 /* libz.tbd in Frameworks */,
+				DBB3ED3D264A82A9008754C6 /* libiconv.tbd in Frameworks */,
+				DBB3ED39264A8235008754C6 /* CoreMedia.framework in Frameworks */,
+				DBB3ED37264A8214008754C6 /* VideoToolbox.framework in Frameworks */,
+				DBB3ED35264A81DA008754C6 /* libbz2.1.0.tbd in Frameworks */,
+				DBB3ED2B264A8042008754C6 /* libx264.a in Frameworks */,
+				DBB3ED2A264A7FFE008754C6 /* libfdk-aac.a in Frameworks */,
+				DBB3ED22264A7FCE008754C6 /* libavcodec.a in Frameworks */,
+				DBB3ED23264A7FCE008754C6 /* libavdevice.a in Frameworks */,
+				DBB3ED24264A7FCE008754C6 /* libavfilter.a in Frameworks */,
+				DBB3ED25264A7FCE008754C6 /* libavformat.a in Frameworks */,
+				DBB3ED26264A7FCE008754C6 /* libavutil.a in Frameworks */,
+				DBB3ED27264A7FCE008754C6 /* libpostproc.a in Frameworks */,
+				DBB3ED28264A7FCE008754C6 /* libswresample.a in Frameworks */,
+				DBB3ED29264A7FCE008754C6 /* libswscale.a in Frameworks */,
+				DBB569C326004F8E00B82906 /* libSDL2-2.0.0.dylib in Frameworks */,
+				DBB3ED2D264A80A0008754C6 /* AudioToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB51D2DF26734F420031BC18 /* SDL */ = {
+			isa = PBXGroup;
+			children = (
+				DB51D2E32673505F0031BC18 /* masdl_thread.h */,
+				DB51D2E42673505F0031BC18 /* masdl_thread.m */,
+				DB51D2E7267850300031BC18 /* ff_ffplay_def.h */,
+			);
+			path = SDL;
+			sourceTree = "<group>";
+		};
+		DBB5695726004C6D00B82906 = {
+			isa = PBXGroup;
+			children = (
+				DBB5696226004C6D00B82906 /* MAMacPlayer */,
+				DBB5696126004C6D00B82906 /* Products */,
+				DBB5697826004C9A00B82906 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DBB5696126004C6D00B82906 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DBB5696026004C6D00B82906 /* MAMacPlayer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DBB5696226004C6D00B82906 /* MAMacPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				DB51D2DF26734F420031BC18 /* SDL */,
+				DBB5696326004C6D00B82906 /* AppDelegate.h */,
+				DBB5696426004C6D00B82906 /* AppDelegate.m */,
+				DBB5696626004C6D00B82906 /* ViewController.h */,
+				DBB5696726004C6D00B82906 /* ViewController.m */,
+				DBB3ED10264A7375008754C6 /* MAPlayerViewController.h */,
+				DBB3ED11264A7375008754C6 /* MAPlayerViewController.m */,
+				DBB3ED44264E16D7008754C6 /* MAAudioQueuePlayer.h */,
+				DBB3ED45264E16D7008754C6 /* MAAudioQueuePlayer.m */,
+				DBE84689265E255A00A1258F /* MAVideoQueuePlayer.h */,
+				DBE8468A265E255A00A1258F /* MAVideoQueuePlayer.m */,
+				DB60D400268C9945003F22A1 /* MAFrameBuffer.h */,
+				DB60D401268C9945003F22A1 /* MAFrameBuffer.m */,
+				DBB3ED15264A753B008754C6 /* MAPlayer.h */,
+				DBB3ED16264A753B008754C6 /* MAPlayer.m */,
+				DBB3ED18264A78F8008754C6 /* test2.mp4 */,
+				DBB99E962626D3CD007BF645 /* video1.yuv */,
+				DBB5696926004C6D00B82906 /* Assets.xcassets */,
+				DBB5696B26004C6E00B82906 /* Main.storyboard */,
+				DBB5696E26004C6E00B82906 /* Info.plist */,
+				DBB5696F26004C6E00B82906 /* main.m */,
+				DBB5697126004C6E00B82906 /* MAMacPlayer.entitlements */,
+			);
+			path = MAMacPlayer;
+			sourceTree = "<group>";
+		};
+		DBB5697826004C9A00B82906 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DBB3ED3E264A8E81008754C6 /* libz.tbd */,
+				DBB3ED3C264A82A9008754C6 /* libiconv.tbd */,
+				DBB3ED3A264A827C008754C6 /* CoreServices.framework */,
+				DBB3ED38264A8235008754C6 /* CoreMedia.framework */,
+				DBB3ED36264A8214008754C6 /* VideoToolbox.framework */,
+				DBB3ED34264A81DA008754C6 /* libbz2.1.0.tbd */,
+				DBB3ED2C264A80A0008754C6 /* AudioToolbox.framework */,
+				DBB3ED1C264A7F23008754C6 /* libavcodec.a */,
+				DBB3ED1E264A7F23008754C6 /* libavdevice.a */,
+				DBB3ED1A264A7F23008754C6 /* libavfilter.a */,
+				DBB3ED20264A7F23008754C6 /* libavformat.a */,
+				DBB3ED1F264A7F23008754C6 /* libavutil.a */,
+				DBB3ED1D264A7F23008754C6 /* libpostproc.a */,
+				DBB3ED1B264A7F23008754C6 /* libswresample.a */,
+				DBB3ED21264A7F24008754C6 /* libswscale.a */,
+				DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */,
+				DBB5698326004D3000B82906 /* libx264.a */,
+				DBB5697926004C9A00B82906 /* libfdk-aac.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DBB5695F26004C6D00B82906 /* MAMacPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBB5697426004C6E00B82906 /* Build configuration list for PBXNativeTarget "MAMacPlayer" */;
+			buildPhases = (
+				DBB5695C26004C6D00B82906 /* Sources */,
+				DBB5695D26004C6D00B82906 /* Frameworks */,
+				DBB5695E26004C6D00B82906 /* Resources */,
+				DBB569C526004F8E00B82906 /* Embed Libraries */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MAMacPlayer;
+			productName = MAMacPlayer;
+			productReference = DBB5696026004C6D00B82906 /* MAMacPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DBB5695826004C6D00B82906 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					DBB5695F26004C6D00B82906 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = DBB5695B26004C6D00B82906 /* Build configuration list for PBXProject "MAMacPlayer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DBB5695726004C6D00B82906;
+			productRefGroup = DBB5696126004C6D00B82906 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DBB5695F26004C6D00B82906 /* MAMacPlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DBB5695E26004C6D00B82906 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBB5696A26004C6D00B82906 /* Assets.xcassets in Resources */,
+				DBB5696D26004C6E00B82906 /* Main.storyboard in Resources */,
+				DBB3ED19264A78F8008754C6 /* test2.mp4 in Resources */,
+				DBB99E972626D3CD007BF645 /* video1.yuv in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DBB5695C26004C6D00B82906 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */,
+				DBB3ED17264A753B008754C6 /* MAPlayer.m in Sources */,
+				DBB5696826004C6D00B82906 /* ViewController.m in Sources */,
+				DBB3ED13264A7375008754C6 /* MAPlayerViewController.m in Sources */,
+				DBE8468B265E255A00A1258F /* MAVideoQueuePlayer.m in Sources */,
+				DBB3ED46264E16D7008754C6 /* MAAudioQueuePlayer.m in Sources */,
+				DBB5697026004C6E00B82906 /* main.m in Sources */,
+				DB60D402268C9945003F22A1 /* MAFrameBuffer.m in Sources */,
+				DBB5696526004C6D00B82906 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DBB5696B26004C6E00B82906 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBB5696C26004C6E00B82906 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DBB5697226004C6E00B82906 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DBB5697326004C6E00B82906 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DBB5697526004C6E00B82906 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MAMacPlayer/MAMacPlayer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					"/Users/mayinglun/库/libsdl-mac/include",
+					"/Users/mayinglun/库/x264-mac/include",
+					"/Users/mayinglun/库/fdk-aac-mac/include",
+					"/Users/mayinglun/库/ffmpeg-mac/include",
+				);
+				INFOPLIST_FILE = MAMacPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/mayinglun/库/libsdl-mac/lib",
+					"/Users/mayinglun/库/ffmpeg-mac/lib",
+					"/Users/mayinglun/库/x264-mac/lib",
+					"/Users/mayinglun/库/fdk-aac-mac/lib",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = MA.MAMacPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DBB5697626004C6E00B82906 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MAMacPlayer/MAMacPlayer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					"/Users/mayinglun/库/libsdl-mac/include",
+					"/Users/mayinglun/库/x264-mac/include",
+					"/Users/mayinglun/库/fdk-aac-mac/include",
+					"/Users/mayinglun/库/ffmpeg-mac/include",
+				);
+				INFOPLIST_FILE = MAMacPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/mayinglun/库/libsdl-mac/lib",
+					"/Users/mayinglun/库/ffmpeg-mac/lib",
+					"/Users/mayinglun/库/x264-mac/lib",
+					"/Users/mayinglun/库/fdk-aac-mac/lib",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = MA.MAMacPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DBB5695B26004C6D00B82906 /* Build configuration list for PBXProject "MAMacPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBB5697226004C6E00B82906 /* Debug */,
+				DBB5697326004C6E00B82906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBB5697426004C6E00B82906 /* Build configuration list for PBXNativeTarget "MAMacPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBB5697526004C6E00B82906 /* Debug */,
+				DBB5697626004C6E00B82906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DBB5695826004C6D00B82906 /* Project object */;
+}
