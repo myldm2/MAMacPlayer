@@ -20,11 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithVideoState:(VideoState *)videoState;
 
-- (void)readPCMAndPlay:(AudioQueueRef)outQ buffer:(AudioQueueBufferRef)outQB;
+//- (void)readPCMAndPlay:(AudioQueueRef)outQ buffer:(AudioQueueBufferRef)outQB;
 
 - (BOOL)needData;
 
 - (void)play;
+
+- (void)enqueueFrame:(AVFrame *)frame;
 
 @end
 

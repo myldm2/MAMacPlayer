@@ -6,6 +6,9 @@
 //
 
 #import "MAAudioQueuePlayer.h"
+#import "MAFrameBuffer.h"
+
+#define MAX_AUDIO_FRAME_SIZE 192000
 
 #define QUEUE_BUFFER_SIZE 4         //队列缓冲个数
 #define EVERY_READ_LENGTH 1024*4      //每次从文件读取的长度
@@ -17,7 +20,14 @@
     AudioQueueRef audioQueue;                                 //音频播放队列
     AudioQueueBufferRef audioQueueBuffers[QUEUE_BUFFER_SIZE]; //音频缓存
     VideoState *_videoState;
+    
+    uint8_t *_audio_buf;
 }
+
+@property (nonatomic, strong) MAFrameBuffer *frameBuffer;
+@property (nonatomic, assign) AVFrame *frame;
+@property (nonatomic, assign) NSUInteger frameOffset;
+@property (nonatomic, strong) NSData *frameData;
 
 @end
 
@@ -36,11 +46,21 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
     self = [super init];
     if (self) {
         _videoState = videoState;
+        _audio_buf = malloc(MAX_AUDIO_FRAME_SIZE);
+        _frameBuffer = [[MAFrameBuffer alloc] initWithMaxCount:300];
         self.pcmData = [NSMutableData data];
         self.synlock = [[NSLock alloc] init];
         [self initAudio];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    free(_audio_buf);
+    if (_frame) {
+        
+    }
 }
 
 -(void)initAudio
@@ -71,12 +91,17 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
     }
 }
 
+- (void)enqueueFrame:(AVFrame *)frame
+{
+    [self.frameBuffer enqueueFrame:frame];
+}
+
 - (BOOL)needData
 {
-    BOOL needData = NO;
-    [self.synlock lock];
-    needData = self.pcmData.length < 1024 * 50;
-    [self.synlock unlock];
+    BOOL needData = self.frameBuffer.count < 100;
+//    [self.synlock lock];
+//    needData = self.pcmData.length < 1024 * 50;
+//    [self.synlock unlock];
     return needData;
 }
 
@@ -108,27 +133,84 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
 
 -(void)readPCMAndPlay:(AudioQueueRef)outQ buffer:(AudioQueueBufferRef)outQB
 {
-    [self.synlock lock];
-    
-    if (self.pcmData.length == 0) {
-        outQB->mAudioDataByteSize = MIN_SIZE_PER_FRAME;
-        memset(outQB->mAudioData, 0, MIN_SIZE_PER_FRAME);
-    } else if (self.pcmData.length >= MIN_SIZE_PER_FRAME) {
-        NSData *data = [self.pcmData subdataWithRange:NSMakeRange(0, MIN_SIZE_PER_FRAME)];
-        self.pcmData = [NSMutableData dataWithData:[self.pcmData subdataWithRange:NSMakeRange(data.length, self.pcmData.length - data.length)]];
-        outQB->mAudioDataByteSize = (UInt32)data.length;
-        memcpy(outQB->mAudioData, data.bytes, data.length);
-    } else {
-        NSData *data = [self.pcmData subdataWithRange:NSMakeRange(0, self.pcmData.length)];
-        self.pcmData = nil;
-        outQB->mAudioDataByteSize = (UInt32)data.length;
-        memcpy(outQB->mAudioData, data.bytes, data.length);
-    }
 
+    NSData *data = [self getPcmData];
+    outQB->mAudioDataByteSize = (UInt32)data.length;
+    memcpy(outQB->mAudioData, data.bytes, data.length);
     int ret = AudioQueueEnqueueBuffer(outQ, outQB, 0, NULL);
-    [self.synlock unlock];
+    
+//    int data_size = 2 * 2 * _audio_frame->nb_samples;
+//
+//    int ret = swr_convert(_audio_convert_ctx,
+//                &_audio_buf,
+//                MAX_AUDIO_FRAME_SIZE,
+//                (const uint8_t **)_audio_frame->data,
+//                _audio_frame->nb_samples);
+//
+//    [self.audioPlayer.synlock lock];
+//    [self.audioPlayer.pcmData appendBytes:_audio_buf length:data_size];
+    
+    
+//    [self.synlock lock];
+//    if (self.pcmData.length == 0) {
+//        outQB->mAudioDataByteSize = MIN_SIZE_PER_FRAME;
+//        memset(outQB->mAudioData, 0, MIN_SIZE_PER_FRAME);
+//    } else if (self.pcmData.length >= MIN_SIZE_PER_FRAME) {
+//        NSData *data = [self.pcmData subdataWithRange:NSMakeRange(0, MIN_SIZE_PER_FRAME)];
+//        self.pcmData = [NSMutableData dataWithData:[self.pcmData subdataWithRange:NSMakeRange(data.length, self.pcmData.length - data.length)]];
+//        outQB->mAudioDataByteSize = (UInt32)data.length;
+//        memcpy(outQB->mAudioData, data.bytes, data.length);
+//    } else {
+//        NSData *data = [self.pcmData subdataWithRange:NSMakeRange(0, self.pcmData.length)];
+//        self.pcmData = nil;
+//        outQB->mAudioDataByteSize = (UInt32)data.length;
+//        memcpy(outQB->mAudioData, data.bytes, data.length);
+//    }
+//
+//    int ret = AudioQueueEnqueueBuffer(outQ, outQB, 0, NULL);
+//    [self.synlock unlock];
 }
 
+
+- (NSData *)getPcmData
+{
+    NSMutableData *data = [[NSMutableData alloc] initWithCapacity:MIN_SIZE_PER_FRAME];
+    
+    while (data.length < MIN_SIZE_PER_FRAME) {
+        if (!self.frame || !self.frameData) {
+            self.frame = [self.frameBuffer dequeueFrame];
+            if (self.frame) {
+                int data_size = 2 * 2 * self.frame->nb_samples;
+                int ret = swr_convert(_videoState->audioConvertCtx,
+                            &_audio_buf,
+                            MAX_AUDIO_FRAME_SIZE,
+                            (const uint8_t **)_frame->data,
+                                      _frame->nb_samples);
+                self.frameData = [NSData dataWithBytes:_audio_buf length:data_size];
+            }
+        }
+//        NSLog(@"audio test log 2:%@ %d", self.frameData, self.frameBuffer.count);
+        if (self.frameData) {
+            if (self.frameData.length > self.frameOffset + MIN_SIZE_PER_FRAME) {
+                [data appendData:[self.frameData subdataWithRange:NSMakeRange(self.frameOffset, MIN_SIZE_PER_FRAME)]];
+                self.frameOffset = self.frameOffset + MIN_SIZE_PER_FRAME;
+            } else {
+                [data appendData:[self.frameData subdataWithRange:NSMakeRange(self.frameOffset, self.frameData.length - self.frameOffset)]];
+                av_frame_free(&self->_frame);
+                self.frame = nil;
+                self.frameData = nil;
+                self.frameOffset = 0;
+            }
+        } else {
+            unsigned long length = MIN_SIZE_PER_FRAME - data.length;
+            void* emprtData = malloc(length);
+            memset(emprtData, 0, length);
+            [data appendData:[[NSData alloc] initWithBytes:emprtData length:length]];
+        }
+    }
+    
+    return [data copy];
+}
 
 
 @end

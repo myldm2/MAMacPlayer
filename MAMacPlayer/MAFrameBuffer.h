@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly) int count;
 
+- (instancetype)initWithMaxCount:(NSUInteger)maxCount;
+
 - (BOOL)enqueueFrame:(AVFrame *)frame;
 
 - (AVFrame *)dequeueFrame;

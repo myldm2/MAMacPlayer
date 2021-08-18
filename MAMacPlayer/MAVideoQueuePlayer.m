@@ -36,8 +36,7 @@
     self = [super init];
     if (self) {
         _videoState = videoState;
-        _frameBuffer = [[MAFrameBuffer alloc] init];
-        self.images = [NSMutableArray array];
+        _frameBuffer = [[MAFrameBuffer alloc] initWithMaxCount:100];
         self.imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         
         videoState->outHeight = videoState->videoCodecCtx->height;
@@ -79,7 +78,6 @@ int timerAction(void *data)
 - (BOOL)needData
 {
     return self.frameBuffer.count <= 10;
-//    return self.images.count <= 20;
 }
 
 - (void)enqueueFrame:(AVFrame *)frame
@@ -110,6 +108,7 @@ int timerAction(void *data)
         sws_scale(_videoState->videoSwsCtx, (uint8_t const * const *)frame->data,
                   frame->linesize, 0, frame->height,
                   _picture->data, _picture->linesize);
+        av_frame_free(&frame);
 
         NSImage *image = [self converImage:_picture->data[0] bytesPerRow:_picture->linesize[0] width:_videoState->outWidth height:_videoState->outHeight];
         
@@ -120,21 +119,6 @@ int timerAction(void *data)
         }
     }
     
-//    NSImage *image = nil;
-//    [self.synlock lock];
-//
-//    image = self.images.firstObject;
-//    if (image) {
-//        [self.images removeObject:image];
-//    }
-//
-//    [self.synlock unlock];
-//
-//    if (image) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            self.imageView.image = image;
-//        });
-//    }
 }
 
 - (NSImage *)converImage:(uint8_t *)data bytesPerRow:(int)bytesPerRow width:(int)width height:(int)height

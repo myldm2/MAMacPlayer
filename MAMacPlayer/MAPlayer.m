@@ -155,6 +155,7 @@
     }
     
     while ([self.videoPlayer needData] || [self.audioPlayer needData]) {
+//    while ([self.videoPlayer needData]) {
         AVPacket packet;
         int ret = av_read_frame(_formatContext, &packet);
         if (ret) {
@@ -195,25 +196,33 @@
             int frameFinished = 0;
             while (frameFinished == 0) {
                 
-                AVStream *stream = _videoState->formatCtx->streams[packet.stream_index];
-                AVRational timeBase = stream->time_base;
+                AVFrame *audio_frame = av_frame_alloc();
                 
-                avcodec_decode_audio4(_audioCodecCtx, _audio_frame, &frameFinished, &packet);
+                avcodec_decode_audio4(_audioCodecCtx, audio_frame, &frameFinished, &packet);
                 
-                NSLog(@"audio pts:%f", _audio_frame->pts * av_q2d(timeBase));
-
-                int data_size = 2 * 2 * _audio_frame->nb_samples;
-
-                int ret = swr_convert(_audio_convert_ctx,
-                            &_audio_buf,
-                            MAX_AUDIO_FRAME_SIZE,
-                            (const uint8_t **)_audio_frame->data,
-                            _audio_frame->nb_samples);
+                [self.audioPlayer enqueueFrame:audio_frame];
                 
-                [self.audioPlayer.synlock lock];
-                [self.audioPlayer.pcmData appendBytes:_audio_buf length:data_size];
                 
-                [self.audioPlayer.synlock unlock];
+                
+//                AVStream *stream = _videoState->formatCtx->streams[packet.stream_index];
+//                AVRational timeBase = stream->time_base;
+//                
+//                avcodec_decode_audio4(_audioCodecCtx, _audio_frame, &frameFinished, &packet);
+//                
+//                NSLog(@"audio pts:%f", _audio_frame->pts * av_q2d(timeBase));
+//
+//                int data_size = 2 * 2 * _audio_frame->nb_samples;
+//
+//                int ret = swr_convert(_audio_convert_ctx,
+//                            &_audio_buf,
+//                            MAX_AUDIO_FRAME_SIZE,
+//                            (const uint8_t **)_audio_frame->data,
+//                            _audio_frame->nb_samples);
+//
+//                [self.audioPlayer.synlock lock];
+//                [self.audioPlayer.pcmData appendBytes:_audio_buf length:data_size];
+//                
+//                [self.audioPlayer.synlock unlock];
                 
                 if (frameFinished != 0) {
                     break;
@@ -376,7 +385,7 @@
                            NULL);
     }
     swr_init(_audio_convert_ctx);
-
+    _videoState->audioConvertCtx = _audio_convert_ctx;
     
     return;
 

@@ -16,10 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) NSView *view;
 
-@property (nonatomic, strong) NSMutableArray<NSImage *> *images;
-
-@property (nonatomic, strong) NSLock *synlock;
-
 - (instancetype)initWithVideoState:(VideoState *)videoState;
 
 - (void)play;
