@@ -59,6 +59,9 @@
     uint8_t *_audio_buf;
     
     BOOL _haveData;
+    
+    BOOL _audioEnable;
+    BOOL _videoEnable;
 }
 
 @property (nonatomic, strong) NSImageView *imageView;
@@ -172,20 +175,19 @@
                 AVFrame *frame = av_frame_alloc();
                 avcodec_decode_video2(_videoCodecCtx, frame, &frameFinished, &packet);
                 [self.videoPlayer enqueueFrame:frame];
-                
-                NSLog(@"video pts:%f", av_q2d(timeBase) * packet.pts);
+
+//                NSLog(@"video pts:%f", av_q2d(timeBase) * packet.pts);
                 
 //                NSLog(@"video pts:%lld  %d  %d", packet.pts, _videoState->videoCodecCtx->time_base.den, _videoState->videoCodecCtx->time_base.num);
-
-//                avcodec_decode_video2(_videoCodecCtx, _video_frame, &frameFinished, &packet);
-//                sws_scale(_video_sws_ctx, (uint8_t const * const *)_video_frame->data,
-//                          _video_frame->linesize, 0, _video_frame->height,
+//                avcodec_decode_video2(_videoCodecCtx, frame, &frameFinished, &packet);
+//                NSLog(@"video pts:%f", av_q2d(timeBase) * packet.pts);
+//                sws_scale(_video_sws_ctx, (uint8_t const * const *)frame->data,
+//                          frame->linesize, 0, frame->height,
 //                          _picture->data, _picture->linesize);
-//
 //                NSImage *image = [self converImage:_picture->data[0] bytesPerRow:_picture->linesize[0] width:_width height:_height];
-//                [self.videoPlayer.synlock lock];
+//                [self.videoPlayer.aysLock lock];
 //                [self.videoPlayer.images addObject:image];
-//                [self.videoPlayer.synlock unlock];
+//                [self.videoPlayer.aysLock unlock];
 
                 if (frameFinished != 0) {
                     break;

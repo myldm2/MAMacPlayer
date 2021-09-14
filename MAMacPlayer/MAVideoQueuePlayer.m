@@ -50,6 +50,10 @@
                             videoState->outHeight);
         }
         
+        
+        self.aysLock = [NSLock new];
+        self.images = [NSMutableArray array];
+        
         [self setupThread];
     }
     return self;
@@ -78,6 +82,7 @@ int timerAction(void *data)
 - (BOOL)needData
 {
     return self.frameBuffer.count <= 10;
+//    return  self.images.count <= 0;
 }
 
 - (void)enqueueFrame:(AVFrame *)frame
@@ -92,6 +97,9 @@ int timerAction(void *data)
     [NSTimer scheduledTimerWithTimeInterval:0.0434 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self showNextImage];
     }];
+//    [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+//        [self showNextImage];
+//    }];
 }
 
 - (void)setView:(NSView *)view
@@ -103,15 +111,30 @@ int timerAction(void *data)
 
 - (void)showNextImage
 {
+    static int index = 0;
+    
     AVFrame *frame = [self.frameBuffer dequeueFrame];
     if (frame) {
         sws_scale(_videoState->videoSwsCtx, (uint8_t const * const *)frame->data,
                   frame->linesize, 0, frame->height,
                   _picture->data, _picture->linesize);
-        av_frame_free(&frame);
+        
 
         NSImage *image = [self converImage:_picture->data[0] bytesPerRow:_picture->linesize[0] width:_videoState->outWidth height:_videoState->outHeight];
         
+        if (index <= 100) {
+            NSData *imageData = [image TIFFRepresentation];
+            NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:imageData];
+            [imageRep setSize:[[_imageView image] size]];
+            NSData *imageData1 = [imageRep representationUsingType:NSPNGFileType properties:nil];
+            NSLog(@"mayinglun log file path:%@", NSTemporaryDirectory());
+            NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%lld.png", frame->pts]];
+            [imageData1 writeToFile:path atomically:YES];
+            index ++;
+        }
+        
+        av_frame_free(&frame);
+
         if (image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.imageView.image = image;
@@ -119,6 +142,19 @@ int timerAction(void *data)
         }
     }
     
+//    [self.aysLock lock];
+//    NSImage* image = nil;
+//    if (self.images.count > 0) {
+//        image = self.images[0];
+//        [self.images removeObjectAtIndex:0];
+//        NSLog(@"mayinglun log show frame:%@", image);
+//    }
+//    [self.aysLock unlock];
+//    if (image) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self.imageView.image = image;
+//        });
+//    }
 }
 
 - (NSImage *)converImage:(uint8_t *)data bytesPerRow:(int)bytesPerRow width:(int)width height:(int)height

@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)enqueueFrame:(AVFrame *)frame;
 
+
+@property (nonatomic, strong) NSLock* aysLock;
+
+@property (nonatomic, strong) NSMutableArray* images;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
