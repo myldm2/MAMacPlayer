@@ -6,7 +6,7 @@
 //
 
 #import "MAVideoQueuePlayer.h"
-#import "MAFrameBuffer.h"
+#import "MAVideoFrameBuffer.h"
 
 #include <libswscale/swscale.h>
 #include <libavutil/time.h>
@@ -17,7 +17,7 @@
 @interface MAVideoQueuePlayer ()
 {
     SDL_Thread *_timerThread;
-    MAFrameBuffer *_frameBuffer;
+    MAVideoFrameBuffer *_frameBuffer;
     VideoState *_videoState;
     
     AVPicture *_picture;
@@ -25,7 +25,7 @@
 
 
 @property (nonatomic, strong) NSImageView *imageView;
-@property (nonatomic, strong) MAFrameBuffer *frameBuffer;
+@property (nonatomic, strong) MAVideoFrameBuffer *frameBuffer;
 
 @end
 
@@ -36,7 +36,7 @@
     self = [super init];
     if (self) {
         _videoState = videoState;
-        _frameBuffer = [[MAFrameBuffer alloc] initWithMaxCount:100];
+        _frameBuffer = [[MAVideoFrameBuffer alloc] initWithMaxCount:100];
         self.imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)];
         
         videoState->outHeight = videoState->videoCodecCtx->height;
@@ -85,7 +85,7 @@ int timerAction(void *data)
 //    return  self.images.count <= 0;
 }
 
-- (void)enqueueFrame:(AVFrame *)frame
+- (void)enqueueFrame:(MAVideoFrame *)frame
 {
     if (frame) {
         [self.frameBuffer enqueueFrame:frame];
@@ -113,27 +113,28 @@ int timerAction(void *data)
 {
     static int index = 0;
     
-    AVFrame *frame = [self.frameBuffer dequeueFrame];
+    MAVideoFrame *frame = [self.frameBuffer dequeueFrame];
     if (frame) {
-        sws_scale(_videoState->videoSwsCtx, (uint8_t const * const *)frame->data,
-                  frame->linesize, 0, frame->height,
-                  _picture->data, _picture->linesize);
-        
 
-        NSImage *image = [self converImage:_picture->data[0] bytesPerRow:_picture->linesize[0] width:_videoState->outWidth height:_videoState->outHeight];
+        NSImage *image = [self converImage:frame.picture->data[0] bytesPerRow:frame.picture->linesize[0] width:_videoState->outWidth height:_videoState->outHeight];
         
-        if (index <= 100) {
-            NSData *imageData = [image TIFFRepresentation];
-            NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:imageData];
-            [imageRep setSize:[[_imageView image] size]];
-            NSData *imageData1 = [imageRep representationUsingType:NSPNGFileType properties:nil];
-            NSLog(@"mayinglun log file path:%@", NSTemporaryDirectory());
-            NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%lld.png", frame->pts]];
-            [imageData1 writeToFile:path atomically:YES];
-            index ++;
-        }
+        avpicture_free(frame.picture);
         
-        av_frame_free(&frame);
+//        NSLog(@"mayinglun log frame index:b_%d %p", index, _picture->data[0]);
+        
+//        if (index <= 100) {
+//            NSData *imageData = [image TIFFRepresentation];
+//            NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:imageData];
+//            [imageRep setSize:[[_imageView image] size]];
+//            NSData *imageData1 = [imageRep representationUsingType:NSPNGFileType properties:nil];
+////            NSLog(@"mayinglun log file path:%@", NSTemporaryDirectory());
+//            NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"b_%d_%p.png", index, frame]];
+//            [imageData1 writeToFile:path atomically:YES];
+//            index ++;
+//            NSLog(@"mayinglun log frame index:b_%d %p", index, frame->data[0]);
+//        }
+        
+//        av_frame_free(&frame);
 
         if (image) {
             dispatch_async(dispatch_get_main_queue(), ^{

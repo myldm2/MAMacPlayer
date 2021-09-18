@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <libavformat/avformat.h>
 #import "ff_ffplay_def.h"
+#import "MAVideoFrame.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)needData;
 
-- (void)enqueueFrame:(AVFrame *)frame;
+- (void)enqueueFrame:(MAVideoFrame *)frame;
 
 
 @property (nonatomic, strong) NSLock* aysLock;

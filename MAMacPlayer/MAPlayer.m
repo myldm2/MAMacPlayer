@@ -16,6 +16,8 @@
 #include <libswscale/swscale.h>
 #include <libswresample/swresample.h>
 
+#import "MAVideoFrame.h"
+
 #define MAX_AUDIO_FRAME_SIZE 192000
 
 @interface MAPlayer ()
@@ -173,21 +175,40 @@
                 AVRational timeBase = stream->time_base;
                 
                 AVFrame *frame = av_frame_alloc();
-                avcodec_decode_video2(_videoCodecCtx, frame, &frameFinished, &packet);
-                [self.videoPlayer enqueueFrame:frame];
-
-//                NSLog(@"video pts:%f", av_q2d(timeBase) * packet.pts);
                 
-//                NSLog(@"video pts:%lld  %d  %d", packet.pts, _videoState->videoCodecCtx->time_base.den, _videoState->videoCodecCtx->time_base.num);
-//                avcodec_decode_video2(_videoCodecCtx, frame, &frameFinished, &packet);
-//                NSLog(@"video pts:%f", av_q2d(timeBase) * packet.pts);
+                avcodec_decode_video2(_videoCodecCtx, frame, &frameFinished, &packet);
+                AVPicture* picture = (AVPicture*)malloc(sizeof(AVPicture));
+                avpicture_alloc(picture,
+                                AV_PIX_FMT_RGBA,
+                                _width,
+                                _height);
+                sws_scale(_video_sws_ctx, (uint8_t const * const *)frame->data,
+                                          frame->linesize, 0, frame->height,
+                                          picture->data, picture->linesize);
+                MAVideoFrame* videoFrame = [MAVideoFrame new];
+                videoFrame.picture = picture;
+                videoFrame.pts = frame->pts * av_q2d(timeBase);
+                
+                [self.videoPlayer enqueueFrame:videoFrame];
+//                [self.videoPlayer enqueueFrame:frame];
+                
 //                sws_scale(_video_sws_ctx, (uint8_t const * const *)frame->data,
-//                          frame->linesize, 0, frame->height,
-//                          _picture->data, _picture->linesize);
+//                                          frame->linesize, 0, frame->height,
+//                                          _picture->data, _picture->linesize);
 //                NSImage *image = [self converImage:_picture->data[0] bytesPerRow:_picture->linesize[0] width:_width height:_height];
-//                [self.videoPlayer.aysLock lock];
-//                [self.videoPlayer.images addObject:image];
-//                [self.videoPlayer.aysLock unlock];
+                
+                
+//                AVPicture* picture = (AVPicture*)malloc(sizeof(AVPicture));
+//                avpicture_alloc(picture,
+//                                AV_PIX_FMT_RGBA,
+//                                _width,
+//                                _height);
+//                sws_scale(_video_sws_ctx, (uint8_t const * const *)frame->data,
+//                                          frame->linesize, 0, frame->height,
+//                                          picture->data, picture->linesize);
+//                NSLog(@"mayinglun log frame index:b_%d %p", index, picture->data[0]);
+                
+
 
                 if (frameFinished != 0) {
                     break;
@@ -348,7 +369,18 @@
                                     NULL,
                                     NULL
                                     );
-    _videoState->videoSwsCtx = _video_sws_ctx;
+//    _videoState->videoSwsCtx = _video_sws_ctx;
+    _videoState->videoSwsCtx = sws_getContext(_videoCodecCtx->width,
+                                    _videoCodecCtx->height,
+                                    _videoCodecCtx->pix_fmt,
+                                    _videoCodecCtx->width,
+                                    _videoCodecCtx->height,
+                                    AV_PIX_FMT_RGBA,
+                                    SWS_BILINEAR,
+                                    NULL,
+                                    NULL,
+                                    NULL
+                                    );
     
     
     _audioCodecCtxOrig = _formatContext->streams[_audioStreamIndex]->codec;
