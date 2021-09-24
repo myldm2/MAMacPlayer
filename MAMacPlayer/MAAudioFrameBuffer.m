@@ -1,13 +1,13 @@
 //
-//  MAVideoFrameBuffer.m
+//  MAAudioFrameBuffer.m
 //  MAMacPlayer
 //
 //  Created by 马英伦 on 2021/9/15.
 //
 
-#import "MAVideoFrameBuffer.h"
+#import "MAAudioFrameBuffer.h"
 
-@interface MAVideoFrameBuffer ()
+@interface MAAudioFrameBuffer ()
 {
     NSLock *_lock;
 }
@@ -17,13 +17,13 @@
 
 @end
 
-@implementation MAVideoFrameBuffer
+@implementation MAAudioFrameBuffer
 
 - (instancetype)initWithMaxCount:(NSUInteger)maxCount
 {
     self = [super init];
     if (self) {
-        if (maxCount == 0) maxCount = 200;
+        if (maxCount == 0) maxCount = 10;
         _maxCount = maxCount;
         _lock = [[NSLock alloc] init];
         _frameBuffer = [NSMutableArray array];
@@ -40,7 +40,7 @@
     return count;
 }
 
-- (BOOL)enqueueFrame:(MAVideoFrame *)frame
+- (BOOL)enqueueFrame:(MAAudioFrame *)frame
 {
     [_lock lock];
     if (frame && _frameBuffer.count < _maxCount) {
@@ -52,9 +52,9 @@
     return NO;
 }
 
-- (MAVideoFrame *)dequeueFrame
+- (MAAudioFrame *)dequeueFrame
 {
-    MAVideoFrame *frame = NULL;
+    MAAudioFrame *frame = NULL;
     [_lock lock];
     if (_frameBuffer.count > 0) {
         frame = _frameBuffer[0];
@@ -66,9 +66,9 @@
     return frame;
 }
 
-- (MAVideoFrame *)fristFrame
+- (MAAudioFrame *)fristFrame
 {
-    MAVideoFrame *frame = NULL;
+    MAAudioFrame *frame = NULL;
     [_lock lock];
     if (_frameBuffer.count > 0) {
         frame = _frameBuffer[0];

@@ -100,6 +100,9 @@ int timerAction(void *data)
 //    [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
 //        [self showNextImage];
 //    }];
+//    [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+//        [self showNextImage];
+//    }];
 }
 
 - (void)setView:(NSView *)view
@@ -111,27 +114,26 @@ int timerAction(void *data)
 
 - (void)showNextImage
 {
-    static int index = 0;
-    
     MAVideoFrame *frame = [self.frameBuffer dequeueFrame];
     if (frame) {
+        NSImage* image = frame.image;
+//        NSImage *image = [self converImage:frame.picture->data[0] bytesPerRow:frame.picture->linesize[0] width:_videoState->outWidth height:_videoState->outHeight];
 
-        NSImage *image = [self converImage:frame.picture->data[0] bytesPerRow:frame.picture->linesize[0] width:_videoState->outWidth height:_videoState->outHeight];
-        
         avpicture_free(frame.picture);
         
 //        NSLog(@"mayinglun log frame index:b_%d %p", index, _picture->data[0]);
         
-//        if (index <= 100) {
+//        static int index = 0;
+//        if (index <= 5000) {
 //            NSData *imageData = [image TIFFRepresentation];
 //            NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:imageData];
 //            [imageRep setSize:[[_imageView image] size]];
 //            NSData *imageData1 = [imageRep representationUsingType:NSPNGFileType properties:nil];
-////            NSLog(@"mayinglun log file path:%@", NSTemporaryDirectory());
-//            NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"b_%d_%p.png", index, frame]];
+//            NSLog(@"mayinglun log file path:%@", NSTemporaryDirectory());
+//            NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"b_%d.png", index, frame]];
 //            [imageData1 writeToFile:path atomically:YES];
 //            index ++;
-//            NSLog(@"mayinglun log frame index:b_%d %p", index, frame->data[0]);
+////            NSLog(@"mayinglun log frame index:b_%d %p", index, frame->data[0]);
 //        }
         
 //        av_frame_free(&frame);

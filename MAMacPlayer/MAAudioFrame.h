@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MAAudioFrame : NSObject
 
 @property (nonatomic, strong) NSData* data;
+@property (nonatomic, assign) double pts;
+@property (nonatomic, assign) int32_t numSamples;
 
 @end
 

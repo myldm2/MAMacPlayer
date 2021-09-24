@@ -17,6 +17,7 @@
 #include <libswresample/swresample.h>
 
 #import "MAVideoFrame.h"
+#import "MAAudioFrame.h"
 
 #define MAX_AUDIO_FRAME_SIZE 192000
 
@@ -185,8 +186,12 @@
                 sws_scale(_video_sws_ctx, (uint8_t const * const *)frame->data,
                                           frame->linesize, 0, frame->height,
                                           picture->data, picture->linesize);
+                
+                NSImage *image = [self converImage:picture->data[0] bytesPerRow:picture->linesize[0] width:_width height:_height];
+                
                 MAVideoFrame* videoFrame = [MAVideoFrame new];
                 videoFrame.picture = picture;
+                videoFrame.image = image;
                 videoFrame.pts = frame->pts * av_q2d(timeBase);
                 
                 [self.videoPlayer enqueueFrame:videoFrame];
@@ -219,11 +224,27 @@
             int frameFinished = 0;
             while (frameFinished == 0) {
                 
+                AVStream *stream = _videoState->formatCtx->streams[packet.stream_index];
+                AVRational timeBase = stream->time_base;
+                
                 AVFrame *audio_frame = av_frame_alloc();
                 
                 avcodec_decode_audio4(_audioCodecCtx, audio_frame, &frameFinished, &packet);
                 
-                [self.audioPlayer enqueueFrame:audio_frame];
+                int data_size = 2 * 2 * audio_frame->nb_samples;
+                int ret = swr_convert(_videoState->audioConvertCtx,
+                            &_audio_buf,
+                            MAX_AUDIO_FRAME_SIZE,
+                            (const uint8_t **)audio_frame->data,
+                                      audio_frame->nb_samples);
+                NSData* frameData = [NSData dataWithBytes:_audio_buf length:data_size];
+                MAAudioFrame* audioFrame = [MAAudioFrame new];
+                audioFrame.data = frameData;
+                audioFrame.pts = audio_frame->pts * av_q2d(timeBase);
+                audioFrame.numSamples = audio_frame->nb_samples;
+                
+                
+                [self.audioPlayer enqueueFrame:audioFrame];
                 
                 
                 
@@ -296,14 +317,30 @@
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, data, bytesPerRow * height, NULL);  //创建provider
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
     
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, kCGImageAlphaPremultipliedLast);
+    
     CGImageRef imageRef = CGImageCreate(width, height, 8, 32, bytesPerRow, space, kCGImageAlphaLast | kCGImageByteOrder32Big, dataProvider, NULL, true, kCGRenderingIntentDefault);
+    
+    CGContextSetLineWidth(context, 10);
+//    const CGFloat color = [0.5, 0.5, 0.5];
+//    CGContextSetStrokeColor(context, color);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+    
+    [@"Index" drawAtPoint:CGPointMake(width*0.5, height*0.5) withAttributes:@{NSForegroundColorAttributeName:[NSColor whiteColor], NSFontAttributeName:[NSFont systemFontOfSize:12]}];
     
     CGDataProviderRelease(dataProvider);
     NSImage *resultImage = [[NSImage alloc] initWithCGImage:imageRef size:NSMakeSize(width, height)];
+    
+    CGImageRef cgImage = CGBitmapContextCreateImage(context);
+    NSImage *resultImage2 = [[NSImage alloc] initWithCGImage:cgImage size:NSMakeSize(width, height)];
    
     CGImageRelease(imageRef);
     CGColorSpaceRelease(space);
-    return resultImage;
+    
+    CGImageRelease(cgImage);
+    
+//    return resultImage;
+    return resultImage2;
 }
 
 - (void)setupWithPath:(NSString *)path

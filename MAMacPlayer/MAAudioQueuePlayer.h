@@ -9,6 +9,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "ff_ffplay_def.h"
+#import "MAAudioFrame.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)play;
 
-- (void)enqueueFrame:(AVFrame *)frame;
+- (void)enqueueFrame:(MAAudioFrame *)frame;
 
 @end
 

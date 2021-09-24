@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */ = {isa = PBXBuildFile; fileRef = DB51D2E42673505F0031BC18 /* masdl_thread.m */; };
 		DB60D402268C9945003F22A1 /* MAFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB60D401268C9945003F22A1 /* MAFrameBuffer.m */; };
+		DB875B7A26F5D181002CBFE9 /* MAAudioFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB875B7926F5D181002CBFE9 /* MAAudioFrameBuffer.m */; };
 		DBB3ED13264A7375008754C6 /* MAPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3ED11264A7375008754C6 /* MAPlayerViewController.m */; };
 		DBB3ED17264A753B008754C6 /* MAPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3ED16264A753B008754C6 /* MAPlayer.m */; };
 		DBB3ED19264A78F8008754C6 /* test2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DBB3ED18264A78F8008754C6 /* test2.mp4 */; };
@@ -63,6 +64,8 @@
 		DB51D2E7267850300031BC18 /* ff_ffplay_def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ff_ffplay_def.h; sourceTree = "<group>"; };
 		DB60D400268C9945003F22A1 /* MAFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAFrameBuffer.h; sourceTree = "<group>"; };
 		DB60D401268C9945003F22A1 /* MAFrameBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAFrameBuffer.m; sourceTree = "<group>"; };
+		DB875B7826F5D181002CBFE9 /* MAAudioFrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAudioFrameBuffer.h; sourceTree = "<group>"; };
+		DB875B7926F5D181002CBFE9 /* MAAudioFrameBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAudioFrameBuffer.m; sourceTree = "<group>"; };
 		DBB3ED10264A7375008754C6 /* MAPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAPlayerViewController.h; sourceTree = "<group>"; };
 		DBB3ED11264A7375008754C6 /* MAPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAPlayerViewController.m; sourceTree = "<group>"; };
 		DBB3ED15264A753B008754C6 /* MAPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAPlayer.h; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				DBE3232926F1FBA900099D37 /* MAVideoFrameBuffer.m */,
 				DBE3232B26F2007600099D37 /* MAAudioFrame.h */,
 				DBE3232C26F2007600099D37 /* MAAudioFrame.m */,
+				DB875B7826F5D181002CBFE9 /* MAAudioFrameBuffer.h */,
+				DB875B7926F5D181002CBFE9 /* MAAudioFrameBuffer.m */,
 				DBB3ED18264A78F8008754C6 /* test2.mp4 */,
 				DBB99E962626D3CD007BF645 /* video1.yuv */,
 				DBB5696926004C6D00B82906 /* Assets.xcassets */,
@@ -305,6 +310,7 @@
 				DBE8468B265E255A00A1258F /* MAVideoQueuePlayer.m in Sources */,
 				DBB3ED46264E16D7008754C6 /* MAAudioQueuePlayer.m in Sources */,
 				DBB5697026004C6E00B82906 /* main.m in Sources */,
+				DB875B7A26F5D181002CBFE9 /* MAAudioFrameBuffer.m in Sources */,
 				DB60D402268C9945003F22A1 /* MAFrameBuffer.m in Sources */,
 				DBB5696526004C6D00B82906 /* AppDelegate.m in Sources */,
 			);

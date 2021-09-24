@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     self.view.wantsLayer = YES;
-    self.view.layer.backgroundColor = NSColor.whiteColor.CGColor;
+    self.view.layer.backgroundColor = NSColor.blueColor.CGColor;
     
     [MAPlayer shareInstance].view = self.view;
     

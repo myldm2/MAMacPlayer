@@ -7,6 +7,7 @@
 
 #import "MAAudioQueuePlayer.h"
 #import "MAFrameBuffer.h"
+#import "MAAudioFrameBuffer.h"
 
 #define MAX_AUDIO_FRAME_SIZE 192000
 
@@ -24,8 +25,8 @@
     uint8_t *_audio_buf;
 }
 
-@property (nonatomic, strong) MAFrameBuffer *frameBuffer;
-@property (nonatomic, assign) AVFrame *frame;
+@property (nonatomic, strong) MAAudioFrameBuffer *frameBuffer;
+@property (nonatomic, strong) MAAudioFrame *frame;
 @property (nonatomic, assign) NSUInteger frameOffset;
 @property (nonatomic, strong) NSData *frameData;
 
@@ -47,7 +48,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
     if (self) {
         _videoState = videoState;
         _audio_buf = malloc(MAX_AUDIO_FRAME_SIZE);
-        _frameBuffer = [[MAFrameBuffer alloc] initWithMaxCount:300];
+        _frameBuffer = [[MAAudioFrameBuffer alloc] initWithMaxCount:300];
         self.pcmData = [NSMutableData data];
         self.synlock = [[NSLock alloc] init];
         [self initAudio];
@@ -91,7 +92,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
     }
 }
 
-- (void)enqueueFrame:(AVFrame *)frame
+- (void)enqueueFrame:(MAAudioFrame *)frame
 {
     [self.frameBuffer enqueueFrame:frame];
 }
@@ -180,13 +181,14 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
         if (!self.frame || !self.frameData) {
             self.frame = [self.frameBuffer dequeueFrame];
             if (self.frame) {
-                int data_size = 2 * 2 * self.frame->nb_samples;
-                int ret = swr_convert(_videoState->audioConvertCtx,
-                            &_audio_buf,
-                            MAX_AUDIO_FRAME_SIZE,
-                            (const uint8_t **)_frame->data,
-                                      _frame->nb_samples);
-                self.frameData = [NSData dataWithBytes:_audio_buf length:data_size];
+//                int data_size = 2 * 2 * self.frame->nb_samples;
+//                int ret = swr_convert(_videoState->audioConvertCtx,
+//                            &_audio_buf,
+//                            MAX_AUDIO_FRAME_SIZE,
+//                            (const uint8_t **)_frame->data,
+//                                      _frame->nb_samples);
+//                self.frameData = [NSData dataWithBytes:_audio_buf length:data_size];
+                self.frameData = self.frame.data;
             }
         }
 //        NSLog(@"audio test log 2:%@ %d", self.frameData, self.frameBuffer.count);
@@ -196,7 +198,7 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
                 self.frameOffset = self.frameOffset + MIN_SIZE_PER_FRAME;
             } else {
                 [data appendData:[self.frameData subdataWithRange:NSMakeRange(self.frameOffset, self.frameData.length - self.frameOffset)]];
-                av_frame_free(&self->_frame);
+//                av_frame_free(&self->_frame);
                 self.frame = nil;
                 self.frameData = nil;
                 self.frameOffset = 0;

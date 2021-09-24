@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MAVideoFrame : NSObject
 
+@property (nonatomic, strong) NSImage* image;
 @property (nonatomic, assign) AVPicture* picture;
 @property (nonatomic, assign) double pts;
 
