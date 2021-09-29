@@ -191,6 +191,10 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
                 self.frameData = self.frame.data;
             }
         }
+        
+        double peren = self.frameOffset * 1000.0 / self.frame.sampleRate + self.frame.pts;
+        NSLog(@"mayinglun log:%f", peren);
+        
 //        NSLog(@"audio test log 2:%@ %d", self.frameData, self.frameBuffer.count);
         if (self.frameData) {
             if (self.frameData.length > self.frameOffset + MIN_SIZE_PER_FRAME) {

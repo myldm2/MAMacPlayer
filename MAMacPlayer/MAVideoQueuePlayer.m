@@ -62,7 +62,7 @@
 int timerAction(void *data)
 {
     while (YES) {
-        NSLog(@"mayinglun log timerAction");
+//        NSLog(@"mayinglun log timerAction");
         av_usleep(2 * 1000 * 1000);
     }
     return 0;
@@ -82,7 +82,6 @@ int timerAction(void *data)
 - (BOOL)needData
 {
     return self.frameBuffer.count <= 10;
-//    return  self.images.count <= 0;
 }
 
 - (void)enqueueFrame:(MAVideoFrame *)frame
@@ -97,12 +96,6 @@ int timerAction(void *data)
     [NSTimer scheduledTimerWithTimeInterval:0.0434 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self showNextImage];
     }];
-//    [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-//        [self showNextImage];
-//    }];
-//    [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-//        [self showNextImage];
-//    }];
 }
 
 - (void)setView:(NSView *)view

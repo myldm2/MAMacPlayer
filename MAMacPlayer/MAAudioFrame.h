@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSData* data;
 @property (nonatomic, assign) double pts;
-@property (nonatomic, assign) int32_t numSamples;
+@property (nonatomic, assign) int numSamples;
+@property (nonatomic, assign) int sampleRate;
 
 @end
 

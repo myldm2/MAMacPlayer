@@ -194,6 +194,8 @@
                 videoFrame.image = image;
                 videoFrame.pts = frame->pts * av_q2d(timeBase);
                 
+//                NSLog(@"mayinglun log:%f", videoFrame.pts);
+                
                 [self.videoPlayer enqueueFrame:videoFrame];
 //                [self.videoPlayer enqueueFrame:frame];
                 
@@ -242,6 +244,8 @@
                 audioFrame.data = frameData;
                 audioFrame.pts = audio_frame->pts * av_q2d(timeBase);
                 audioFrame.numSamples = audio_frame->nb_samples;
+                audioFrame.sampleRate = audio_frame->sample_rate;
+//                NSLog(@"mayinglun log:%d", ptss);
                 
                 
                 [self.audioPlayer enqueueFrame:audioFrame];
