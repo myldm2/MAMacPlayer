@@ -13,9 +13,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MAVideoQueuePlayerDelegate <NSObject>
+
+- (void)videoQueuePlayerIsReady;
+
+@end
+
+
+
 @interface MAVideoQueuePlayer : NSObject
 
+@property (nonatomic, weak) id<MAVideoQueuePlayerDelegate> delegate;
+
 @property (nonatomic, weak) NSView *view;
+
+@property (nonatomic, strong) NSLock* aysLock;
+
+@property (nonatomic, strong) NSMutableArray* images;
 
 - (instancetype)initWithVideoState:(VideoState *)videoState;
 
@@ -25,10 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)enqueueFrame:(MAVideoFrame *)frame;
 
+- (void)prepareToPlay:(void(^)(BOOL))complate;
 
-@property (nonatomic, strong) NSLock* aysLock;
 
-@property (nonatomic, strong) NSMutableArray* images;
+
+
+
 
 
 @end

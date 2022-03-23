@@ -13,7 +13,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MAAudioQueuePlayerDelegate <NSObject>
+
+- (void)audioQueuePlayerIsReady;
+
+@end
+
 @interface MAAudioQueuePlayer : NSObject
+
+@property (nonatomic, weak) id<MAAudioQueuePlayerDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableData* pcmData;
 
@@ -28,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)play;
 
 - (void)enqueueFrame:(MAAudioFrame *)frame;
+
+- (void)prepareToPlay:(void(^)(BOOL))complate;
 
 @end
 

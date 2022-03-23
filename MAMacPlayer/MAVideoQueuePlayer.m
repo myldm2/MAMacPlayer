@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) NSImageView *imageView;
 @property (nonatomic, strong) MAVideoFrameBuffer *frameBuffer;
+@property (nonatomic, copy) void(^prepareBlock)(BOOL);
 
 @end
 
@@ -63,7 +64,8 @@ int timerAction(void *data)
 {
     while (YES) {
 //        NSLog(@"mayinglun log timerAction");
-        av_usleep(2 * 1000 * 1000);
+//        [self showNextImage];
+        av_usleep(43.4 * 1000);
     }
     return 0;
 }
@@ -88,6 +90,11 @@ int timerAction(void *data)
 {
     if (frame) {
         [self.frameBuffer enqueueFrame:frame];
+    }
+    
+    if (self.prepareBlock && ![self needData]) {
+        self.prepareBlock(YES);
+        self.prepareBlock = nil;
     }
 }
 
@@ -166,6 +173,11 @@ int timerAction(void *data)
     CGImageRelease(imageRef);
     CGColorSpaceRelease(space);
     return resultImage;
+}
+
+- (void)prepareToPlay:(void(^)(BOOL))complate
+{
+    self.prepareBlock = complate;
 }
 
 @end

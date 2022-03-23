@@ -31,6 +31,15 @@ typedef struct VideoState {
     
     int outWidth;
     int outHeight;
+    
+    double audioPts1;
+    double audioPts2;
+    
+    int width;
+    int height;
+    
+    int videoStreamIndex;
+    int audioStreamIndex;
 } VideoState;
 
 #endif /* ff_ffplay_def_h */

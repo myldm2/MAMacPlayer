@@ -29,6 +29,7 @@
 @property (nonatomic, strong) MAAudioFrame *frame;
 @property (nonatomic, assign) NSUInteger frameOffset;
 @property (nonatomic, strong) NSData *frameData;
+@property (nonatomic, copy) void(^prepareBlock)(BOOL);
 
 @end
 
@@ -95,6 +96,12 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
 - (void)enqueueFrame:(MAAudioFrame *)frame
 {
     [self.frameBuffer enqueueFrame:frame];
+    
+    if (self.prepareBlock && ![self needData]) {
+        self.prepareBlock(YES);
+        self.prepareBlock = nil;
+    }
+    
 }
 
 - (BOOL)needData
@@ -193,7 +200,11 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
         }
         
         double peren = self.frameOffset * 1000.0 / self.frame.sampleRate + self.frame.pts;
-        NSLog(@"mayinglun log:%f", peren);
+        if (!isnan(peren)) {
+            _videoState->audioPts2 = _videoState->audioPts1;
+            _videoState->audioPts1 = peren;
+        }
+//        NSLog(@"mayinglun log:%f", peren);  音频时间戳
         
 //        NSLog(@"audio test log 2:%@ %d", self.frameData, self.frameBuffer.count);
         if (self.frameData) {
@@ -218,5 +229,9 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
     return [data copy];
 }
 
+- (void)prepareToPlay:(void(^)(BOOL))complate
+{
+    self.prepareBlock = complate;
+}
 
 @end

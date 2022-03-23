@@ -19,9 +19,11 @@
 #import "MAVideoFrame.h"
 #import "MAAudioFrame.h"
 
+#import "MADecoder.h"
+
 #define MAX_AUDIO_FRAME_SIZE 192000
 
-@interface MAPlayer ()
+@interface MAPlayer () <MADecoderDelegate>
 {
     VideoState *_videoState;
     
@@ -39,9 +41,6 @@
     struct SwsContext  *_video_sws_ctx;
     struct SwrContext  *_audio_convert_ctx;
     
-    int _videoStreamIndex;
-    int _audioStreamIndex;
-    
 //    AVPacket _packet;
     
     AVPacket _video_packet;
@@ -53,9 +52,6 @@
     AVPicture *_picture;
     
     int _frameFinished;
-    
-    int _width;
-    int _height;
     
 //    uint8_t _audio_buf[(MAX_AUDIO_FRAME_SIZE * 3) / 2];
 //    uint8_t *_audio_buf[AV_NUM_DATA_POINTERS];
@@ -70,6 +66,8 @@
 @property (nonatomic, strong) NSImageView *imageView;
 @property (nonatomic, strong) MAAudioQueuePlayer *audioPlayer;
 @property (nonatomic, strong) MAVideoQueuePlayer *videoPlayer;
+
+@property (nonatomic, strong) MADecoder* decoder;
 
 @end
 
@@ -105,6 +103,10 @@
         _audioPlayer = [[MAAudioQueuePlayer alloc] initWithVideoState:_videoState];
         _videoPlayer = [[MAVideoQueuePlayer alloc] initWithVideoState:_videoState];
         
+        
+        _decoder = [[MADecoder alloc] initWithVideoState:_videoState];
+        _decoder.delegate = self;
+        
 //        [self startTimer];
         [self play];
         
@@ -127,9 +129,21 @@
 
 - (void)play
 {
-    [self startTimer];
-    [_videoPlayer play];
-    [_audioPlayer play];
+//    [self startTimer];
+//    [_videoPlayer play];
+//    [_audioPlayer play];
+//    [self prepareToPlay:^(BOOL) {
+//        [_videoPlayer play];
+//        [_audioPlayer play];
+//    }];
+    
+    [self.decoder start];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.videoPlayer play];
+        [self.audioPlayer play];
+    });
+    
 }
 
 - (void)startTimer
@@ -156,8 +170,8 @@
         _picture = (AVPicture*)malloc(sizeof(AVPicture));
         avpicture_alloc(_picture,
                         AV_PIX_FMT_RGBA,
-                        _width,
-                        _height);
+                        _videoCodecCtx->width,
+                        _videoCodecCtx->height);
     }
     
     while ([self.videoPlayer needData] || [self.audioPlayer needData]) {
@@ -168,7 +182,7 @@
             [self.audioPlayer play];
             return ret;
         }
-        if (packet.stream_index == _videoStreamIndex) {
+        if (packet.stream_index == _videoState->videoStreamIndex) {
             int frameFinished = 0;
             while (frameFinished == 0) {
                 
@@ -181,13 +195,13 @@
                 AVPicture* picture = (AVPicture*)malloc(sizeof(AVPicture));
                 avpicture_alloc(picture,
                                 AV_PIX_FMT_RGBA,
-                                _width,
-                                _height);
+                                _videoCodecCtx->width,
+                                _videoCodecCtx->height);
                 sws_scale(_video_sws_ctx, (uint8_t const * const *)frame->data,
                                           frame->linesize, 0, frame->height,
                                           picture->data, picture->linesize);
                 
-                NSImage *image = [self converImage:picture->data[0] bytesPerRow:picture->linesize[0] width:_width height:_height];
+                NSImage *image = [self converImage:picture->data[0] bytesPerRow:picture->linesize[0] width:_videoCodecCtx->width height:_videoCodecCtx->height];
                 
                 MAVideoFrame* videoFrame = [MAVideoFrame new];
                 videoFrame.picture = picture;
@@ -222,7 +236,7 @@
                 }
 
             }
-        } else if (packet.stream_index == _audioStreamIndex) {
+        } else if (packet.stream_index == _videoState->audioStreamIndex) {
             int frameFinished = 0;
             while (frameFinished == 0) {
                 
@@ -349,7 +363,7 @@
 
 - (void)setupWithPath:(NSString *)path
 {
-    _videoStreamIndex = -1;
+    _videoState->videoStreamIndex = -1;
     
     if (avformat_open_input(&_formatContext, path.UTF8String, NULL, NULL) != 0) {
         goto __FAIL;
@@ -366,17 +380,17 @@
     for (int i = 0; i < _formatContext->nb_streams; i ++) {
         AVStream *stream = _formatContext->streams[i];
         if (AVMEDIA_TYPE_VIDEO == stream->codecpar->codec_type) {
-            _videoStreamIndex = i;
+            _videoState->videoStreamIndex = i;
         } else if (AVMEDIA_TYPE_AUDIO == stream->codecpar->codec_type) {
-            _audioStreamIndex = i;
+            _videoState->audioStreamIndex = i;
         }
     }
     
-    if (_videoStreamIndex == -1) {
+    if (_videoState->videoStreamIndex == -1) {
         goto __FAIL;
     }
     
-    _videoCodecCtxOrig = _formatContext->streams[_videoStreamIndex]->codec;
+    _videoCodecCtxOrig = _formatContext->streams[_videoState->videoStreamIndex]->codec;
     _videoState->videoCodecCtxOrig = _videoCodecCtxOrig;
     
     _videoCodec = avcodec_find_decoder(_videoCodecCtxOrig->codec_id);
@@ -396,8 +410,8 @@
        goto __FAIL; // Could not open codec
      }
     
-    _width = _videoCodecCtx->width;
-    _height = _videoCodecCtx->height;
+    _videoState->width = _videoCodecCtx->width;
+    _videoState->height = _videoCodecCtx->height;
     
     _video_sws_ctx = sws_getContext(_videoCodecCtx->width,
                                     _videoCodecCtx->height,
@@ -424,7 +438,7 @@
                                     );
     
     
-    _audioCodecCtxOrig = _formatContext->streams[_audioStreamIndex]->codec;
+    _audioCodecCtxOrig = _formatContext->streams[_videoState->audioStreamIndex]->codec;
     _videoState->audioCodecCtxOrig = _audioCodecCtxOrig;
         
     _audioCodec = avcodec_find_decoder(_audioCodecCtxOrig->codec_id);
@@ -485,6 +499,23 @@ __FAIL:
     }
     
     free(_audio_buf);
+}
+
+
+//#param mark - MADecoderDelegate
+- (BOOL)needData
+{
+    return [self.videoPlayer needData] || [self.audioPlayer needData];
+}
+
+- (void)onDecodeVideoFrame:(MAVideoFrame *)videoFrame
+{
+    [self.videoPlayer enqueueFrame:videoFrame];
+}
+
+- (void)onDecodeAudioFrame:(MAAudioFrame *)audioFrame
+{
+    [self.audioPlayer enqueueFrame:audioFrame];
 }
 
 @end

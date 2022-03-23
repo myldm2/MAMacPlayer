@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB033ACF27E9C93E00F93D81 /* MADecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB033ACE27E9C93E00F93D81 /* MADecoder.m */; };
 		DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */ = {isa = PBXBuildFile; fileRef = DB51D2E42673505F0031BC18 /* masdl_thread.m */; };
 		DB60D402268C9945003F22A1 /* MAFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB60D401268C9945003F22A1 /* MAFrameBuffer.m */; };
 		DB875B7A26F5D181002CBFE9 /* MAAudioFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB875B7926F5D181002CBFE9 /* MAAudioFrameBuffer.m */; };
@@ -37,7 +38,6 @@
 		DBB5697026004C6E00B82906 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB5696F26004C6E00B82906 /* main.m */; };
 		DBB569C326004F8E00B82906 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */; };
 		DBB569C426004F8E00B82906 /* libSDL2-2.0.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		DBB99E972626D3CD007BF645 /* video1.yuv in Resources */ = {isa = PBXBuildFile; fileRef = DBB99E962626D3CD007BF645 /* video1.yuv */; };
 		DBE3232726F1ED2300099D37 /* MAVideoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE3232626F1ED2300099D37 /* MAVideoFrame.m */; };
 		DBE3232A26F1FBA900099D37 /* MAVideoFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE3232926F1FBA900099D37 /* MAVideoFrameBuffer.m */; };
 		DBE3232D26F2007600099D37 /* MAAudioFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE3232C26F2007600099D37 /* MAAudioFrame.m */; };
@@ -59,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB033ACD27E9C93E00F93D81 /* MADecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MADecoder.h; sourceTree = "<group>"; };
+		DB033ACE27E9C93E00F93D81 /* MADecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MADecoder.m; sourceTree = "<group>"; };
 		DB51D2E32673505F0031BC18 /* masdl_thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = masdl_thread.h; sourceTree = "<group>"; };
 		DB51D2E42673505F0031BC18 /* masdl_thread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = masdl_thread.m; sourceTree = "<group>"; };
 		DB51D2E7267850300031BC18 /* ff_ffplay_def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ff_ffplay_def.h; sourceTree = "<group>"; };
@@ -101,7 +103,6 @@
 		DBB5697926004C9A00B82906 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "../../库/fdk-aac-mac/lib/libfdk-aac.a"; sourceTree = "<group>"; };
 		DBB5698326004D3000B82906 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libx264.a; path = "../../库/x264-mac/lib/libx264.a"; sourceTree = "<group>"; };
 		DBB569C226004F8E00B82906 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../库/libsdl-mac/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
-		DBB99E962626D3CD007BF645 /* video1.yuv */ = {isa = PBXFileReference; lastKnownFileType = file; path = video1.yuv; sourceTree = "<group>"; };
 		DBE3232526F1ED2300099D37 /* MAVideoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAVideoFrame.h; sourceTree = "<group>"; };
 		DBE3232626F1ED2300099D37 /* MAVideoFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAVideoFrame.m; sourceTree = "<group>"; };
 		DBE3232826F1FBA900099D37 /* MAVideoFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAVideoFrameBuffer.h; sourceTree = "<group>"; };
@@ -181,6 +182,8 @@
 				DBB3ED45264E16D7008754C6 /* MAAudioQueuePlayer.m */,
 				DBE84689265E255A00A1258F /* MAVideoQueuePlayer.h */,
 				DBE8468A265E255A00A1258F /* MAVideoQueuePlayer.m */,
+				DB033ACD27E9C93E00F93D81 /* MADecoder.h */,
+				DB033ACE27E9C93E00F93D81 /* MADecoder.m */,
 				DB60D400268C9945003F22A1 /* MAFrameBuffer.h */,
 				DB60D401268C9945003F22A1 /* MAFrameBuffer.m */,
 				DBB3ED15264A753B008754C6 /* MAPlayer.h */,
@@ -194,7 +197,6 @@
 				DB875B7826F5D181002CBFE9 /* MAAudioFrameBuffer.h */,
 				DB875B7926F5D181002CBFE9 /* MAAudioFrameBuffer.m */,
 				DBB3ED18264A78F8008754C6 /* test2.mp4 */,
-				DBB99E962626D3CD007BF645 /* video1.yuv */,
 				DBB5696926004C6D00B82906 /* Assets.xcassets */,
 				DBB5696B26004C6E00B82906 /* Main.storyboard */,
 				DBB5696E26004C6E00B82906 /* Info.plist */,
@@ -289,7 +291,6 @@
 				DBB5696A26004C6D00B82906 /* Assets.xcassets in Resources */,
 				DBB5696D26004C6E00B82906 /* Main.storyboard in Resources */,
 				DBB3ED19264A78F8008754C6 /* test2.mp4 in Resources */,
-				DBB99E972626D3CD007BF645 /* video1.yuv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +303,7 @@
 			files = (
 				DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */,
 				DBE3232A26F1FBA900099D37 /* MAVideoFrameBuffer.m in Sources */,
+				DB033ACF27E9C93E00F93D81 /* MADecoder.m in Sources */,
 				DBE3232726F1ED2300099D37 /* MAVideoFrame.m in Sources */,
 				DBB3ED17264A753B008754C6 /* MAPlayer.m in Sources */,
 				DBE3232D26F2007600099D37 /* MAAudioFrame.m in Sources */,

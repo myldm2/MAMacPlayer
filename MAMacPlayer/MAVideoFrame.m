@@ -9,4 +9,13 @@
 
 @implementation MAVideoFrame
 
+- (void)dealloc
+{
+    if (self.picture) {
+        avpicture_free(self.picture);
+        self.picture = nil;
+    }
+    self.image = nil;
+}
+
 @end
