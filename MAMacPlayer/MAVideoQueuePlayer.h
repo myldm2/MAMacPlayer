@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareToPlay:(void(^)(BOOL))complate;
 
-
+- (void)playFrameBetween:(double)time1 time2:(double)time2;
 
 
 

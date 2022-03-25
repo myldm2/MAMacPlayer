@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DB033ACF27E9C93E00F93D81 /* MADecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB033ACE27E9C93E00F93D81 /* MADecoder.m */; };
+		DB033AD227EC1DD600F93D81 /* MATimer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB033AD127EC1DD600F93D81 /* MATimer.m */; };
+		DB2D001D27ED652C00653FA6 /* MATimeScaleplate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2D001C27ED652C00653FA6 /* MATimeScaleplate.m */; };
 		DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */ = {isa = PBXBuildFile; fileRef = DB51D2E42673505F0031BC18 /* masdl_thread.m */; };
 		DB60D402268C9945003F22A1 /* MAFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB60D401268C9945003F22A1 /* MAFrameBuffer.m */; };
 		DB875B7A26F5D181002CBFE9 /* MAAudioFrameBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DB875B7926F5D181002CBFE9 /* MAAudioFrameBuffer.m */; };
@@ -61,6 +63,10 @@
 /* Begin PBXFileReference section */
 		DB033ACD27E9C93E00F93D81 /* MADecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MADecoder.h; sourceTree = "<group>"; };
 		DB033ACE27E9C93E00F93D81 /* MADecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MADecoder.m; sourceTree = "<group>"; };
+		DB033AD027EC1DD600F93D81 /* MATimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MATimer.h; sourceTree = "<group>"; };
+		DB033AD127EC1DD600F93D81 /* MATimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MATimer.m; sourceTree = "<group>"; };
+		DB2D001B27ED652C00653FA6 /* MATimeScaleplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MATimeScaleplate.h; sourceTree = "<group>"; };
+		DB2D001C27ED652C00653FA6 /* MATimeScaleplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MATimeScaleplate.m; sourceTree = "<group>"; };
 		DB51D2E32673505F0031BC18 /* masdl_thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = masdl_thread.h; sourceTree = "<group>"; };
 		DB51D2E42673505F0031BC18 /* masdl_thread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = masdl_thread.m; sourceTree = "<group>"; };
 		DB51D2E7267850300031BC18 /* ff_ffplay_def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ff_ffplay_def.h; sourceTree = "<group>"; };
@@ -182,6 +188,10 @@
 				DBB3ED45264E16D7008754C6 /* MAAudioQueuePlayer.m */,
 				DBE84689265E255A00A1258F /* MAVideoQueuePlayer.h */,
 				DBE8468A265E255A00A1258F /* MAVideoQueuePlayer.m */,
+				DB033AD027EC1DD600F93D81 /* MATimer.h */,
+				DB033AD127EC1DD600F93D81 /* MATimer.m */,
+				DB2D001B27ED652C00653FA6 /* MATimeScaleplate.h */,
+				DB2D001C27ED652C00653FA6 /* MATimeScaleplate.m */,
 				DB033ACD27E9C93E00F93D81 /* MADecoder.h */,
 				DB033ACE27E9C93E00F93D81 /* MADecoder.m */,
 				DB60D400268C9945003F22A1 /* MAFrameBuffer.h */,
@@ -303,11 +313,13 @@
 			files = (
 				DB51D2E52673505F0031BC18 /* masdl_thread.m in Sources */,
 				DBE3232A26F1FBA900099D37 /* MAVideoFrameBuffer.m in Sources */,
+				DB033AD227EC1DD600F93D81 /* MATimer.m in Sources */,
 				DB033ACF27E9C93E00F93D81 /* MADecoder.m in Sources */,
 				DBE3232726F1ED2300099D37 /* MAVideoFrame.m in Sources */,
 				DBB3ED17264A753B008754C6 /* MAPlayer.m in Sources */,
 				DBE3232D26F2007600099D37 /* MAAudioFrame.m in Sources */,
 				DBB5696826004C6D00B82906 /* ViewController.m in Sources */,
+				DB2D001D27ED652C00653FA6 /* MATimeScaleplate.m in Sources */,
 				DBB3ED13264A7375008754C6 /* MAPlayerViewController.m in Sources */,
 				DBE8468B265E255A00A1258F /* MAVideoQueuePlayer.m in Sources */,
 				DBB3ED46264E16D7008754C6 /* MAAudioQueuePlayer.m in Sources */,

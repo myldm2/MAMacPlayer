@@ -114,7 +114,7 @@
                     videoFrame.image = image;
                     videoFrame.pts = frame->pts * av_q2d(timeBase);
 
-    //                NSLog(@"mayinglun log:%f", videoFrame.pts);
+//                    NSLog(@"mayinglun log:%f", videoFrame.pts);
 
                     //todo delegate
                     if (self.delegate && [self.delegate respondsToSelector:@selector(onDecodeVideoFrame:)]) {

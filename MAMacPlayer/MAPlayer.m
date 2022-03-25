@@ -20,10 +20,12 @@
 #import "MAAudioFrame.h"
 
 #import "MADecoder.h"
+#import "MATimer.h"
+#import "MATimeScaleplate.h"
 
 #define MAX_AUDIO_FRAME_SIZE 192000
 
-@interface MAPlayer () <MADecoderDelegate>
+@interface MAPlayer () <MADecoderDelegate, MAAudioQueuePlayerDelegate>
 {
     VideoState *_videoState;
     
@@ -68,6 +70,8 @@
 @property (nonatomic, strong) MAVideoQueuePlayer *videoPlayer;
 
 @property (nonatomic, strong) MADecoder* decoder;
+@property (nonatomic, strong) MATimer* timer;
+@property (nonatomic, strong) MATimeScaleplate* timerScaleplate;
 
 @end
 
@@ -101,11 +105,17 @@
         [self setupWithPath:path];
         
         _audioPlayer = [[MAAudioQueuePlayer alloc] initWithVideoState:_videoState];
+        _audioPlayer.delegate = self;
+        
         _videoPlayer = [[MAVideoQueuePlayer alloc] initWithVideoState:_videoState];
         
         
         _decoder = [[MADecoder alloc] initWithVideoState:_videoState];
         _decoder.delegate = self;
+        
+        
+        _timer = [[MATimer alloc] init];
+        [_timer start];
         
 //        [self startTimer];
         [self play];
@@ -516,6 +526,12 @@ __FAIL:
 - (void)onDecodeAudioFrame:(MAAudioFrame *)audioFrame
 {
     [self.audioPlayer enqueueFrame:audioFrame];
+}
+
+//#param mark -
+- (void)willPlayAudioBetweenStart:(double)start end:(double)end
+{
+    [self.videoPlayer playFrameBetween:start time2:end];
 }
 
 @end

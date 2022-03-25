@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)audioQueuePlayerIsReady;
 
+- (void)willPlayAudioBetweenStart:(double)start end:(double)end;
+
 @end
 
 @interface MAAudioQueuePlayer : NSObject

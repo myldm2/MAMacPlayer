@@ -78,7 +78,7 @@ int timerAction(void *data)
 
 - (void)play
 {
-    [self startTimer];
+//    [self startTimer];
 }
 
 - (BOOL)needData
@@ -178,6 +178,31 @@ int timerAction(void *data)
 - (void)prepareToPlay:(void(^)(BOOL))complate
 {
     self.prepareBlock = complate;
+}
+
+- (void)playFrameBetween:(double)time1 time2:(double)time2
+{
+    while (YES) {
+        MAVideoFrame *frame = [self.frameBuffer fristFrame];
+        if (frame) {
+            if (frame.pts < time1) {
+                [self.frameBuffer dequeueFrame];
+            } else if (frame.pts >= time1 && frame.pts < time2) {
+                [self.frameBuffer dequeueFrame];
+                NSImage* image = frame.image;
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.imageView.image = image;
+                    });
+                }
+                break;
+            } else {
+                break;
+            }
+        } else {
+            break;
+        }
+    }
 }
 
 @end

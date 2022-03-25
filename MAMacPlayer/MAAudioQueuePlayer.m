@@ -203,8 +203,16 @@ static void AudioPlayerAQInputCallback(void *input, AudioQueueRef outQ, AudioQue
         if (!isnan(peren)) {
             _videoState->audioPts2 = _videoState->audioPts1;
             _videoState->audioPts1 = peren;
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(willPlayAudioBetweenStart: end:)]) {
+                [self.delegate willPlayAudioBetweenStart:_videoState->audioPts2 end: _videoState->audioPts1];
+            }
+            
+//            NSLog(@"mayinglun log:audio start %f", _videoState->audioPts1);  //音频时间戳
+//            NSLog(@"mayinglun log:audio end %f", peren);  //音频时间戳
+            
         }
-//        NSLog(@"mayinglun log:%f", peren);  音频时间戳
+        
         
 //        NSLog(@"audio test log 2:%@ %d", self.frameData, self.frameBuffer.count);
         if (self.frameData) {
